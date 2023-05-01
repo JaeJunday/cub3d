@@ -1,15 +1,33 @@
-NAME	=
-CC		=
-CFLAGS	=
-RM		=
-SRCS	=
-OBJS	=
+NAME = cub3D
 
+CFLAGS = -Wall -Wextra -Werror
+LFLAGS = -lmlx -framework OpenGL -framework Appkit 
 
-clean	: 
+all : $(NAME)
 
-fclean	:
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-re		: 
+$(LIBFT) :
+	make -C libft
+	cp libft/$(LIBFT) $(LIBFT)
 
-.phony	: 
+$(NAME) : $(OBJS) $(LIBFT)
+	cc $(LIBFT) $(LFLAGS) $(OBJS) -o $(NAME)
+
+clean :
+	make -C libft clean
+	rm -rf $(OBJS)
+	rm -rf $(BONUS_OBJS)
+.PHONY : clean
+
+fclean : clean
+	rm -rf libft/$(LIBFT)
+	rm -rf $(LIBFT)
+	rm -rf $(NAME)
+	rm -rf $(BONUS_NAME)
+.PHONY : fclean
+
+re : fclean
+	make all
+.PHONY : re
