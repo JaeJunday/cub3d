@@ -1,12 +1,17 @@
 NAME = cub3D
-SRCS = 
-
+SRCS =	check_dfs.c \
+		check_line.c \
+		free_split.c \
+		get_map_data.c \
+		get_map_info.c \
+		error.c \
+		main.c 
 OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJS_FILES = $(addprefix $(OBJ_DIR)/, $(OBJS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LFLAGS = -lmlx -framework OpenGL -framework Appkit -lft -Llibft
 
 LIBFT = libft/libft.a

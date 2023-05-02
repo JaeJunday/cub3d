@@ -6,7 +6,7 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:06:59 by jaejkim           #+#    #+#             */
-/*   Updated: 2023/05/02 09:44:05 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/02 20:10:03 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*save_str(char *str, char c, int letter, int i)
 {
 	char	*strs;
 
-	while (str[i] && s[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] == c)
 			++i;
@@ -63,7 +63,7 @@ static char	*move_str(char *str, char c)
 	int	i;
 
 	i = 0;
-	while (str[i] && s[i] != '\n')
+	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] == c)
 			++i;

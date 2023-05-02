@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/14 10:01:34 by jaejkim           #+#    #+#              #
-#    Updated: 2022/11/27 05:50:18 by jaejkim          ###   ########.fr        #
+#    Updated: 2023/05/02 20:11:33 by hujeong          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,10 @@ SRCS	= 	ft_atoi.c\
 			ft_strtrim.c\
 			ft_substr.c\
 			ft_tolower.c\
-			ft_toupper.c
-B_SRCS	= 	ft_lstadd_back_bonus.c\
+			ft_toupper.c\
+			gnl.c\
+			gnl_util.c\
+			ft_lstadd_back_bonus.c\
 			ft_lstadd_front_bonus.c\
 			ft_lstclear_bonus.c\
 			ft_lstdelone_bonus.c\
@@ -63,8 +65,7 @@ B_SRCS	= 	ft_lstadd_back_bonus.c\
 			ft_lstnew_bonus.c\
 			ft_lstsize_bonus.c
 
-M_OBJS	=	$(SRCS:.c=.o)
-B_OBJS	=	$(B_SRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
 
 %.o		:	%.c
 			$(CC) $(CFLAGS) -c $< -o $@ -I$(INC)
@@ -72,21 +73,12 @@ B_OBJS	=	$(B_SRCS:.c=.o)
 .PHONY	:	all
 all		:	$(NAME)
 
-$(NAME)	:	$(M_OBJS)													
+$(NAME)	:	$(OBJS)													
 			$(AR) $(ARFLAGS) $@ $?
-
-.PHONY	:	bonus
-B_DUM	=	.bonus_dummy
-bonus 	:	$(B_DUM)
-$(B_DUM):	$(B_OBJS)
-			$(AR) $(ARFLAGS) $(NAME) $(B_OBJS)
-			@touch $(B_DUM)
 
 .PHONY	:	clean
 clean	:
-			rm -f $(M_OBJS) 
-			rm -f $(B_OBJS)
-			@rm -f $(B_DUM)
+			rm -f $(OBJS) 
 
 .PHONY	:	fclean
 fclean	:	clean
