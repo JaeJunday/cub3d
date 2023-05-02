@@ -3,83 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 10:06:59 by jaejkim           #+#    #+#             */
-/*   Updated: 2023/01/29 18:10:17 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/02 09:44:05 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-static int	ft_scount(char *s, char c)
+static int	count_word(char const *s, char c)
 {
 	int	i;
-	int	count;
-	int	flag;
+	int	word;
 
-	i = -1;
-	count = 0;
-	flag = 0;
-	while (s[++i])
+	i = 0;
+	word = 0;
+	while (s[i] && s[i] != '\n')
 	{
-		if (s[i] != c && flag == 0)
-		{
-			count++;
-			flag = 1;
-		}
 		if (s[i] == c)
-			flag = 0;
+			++i;
+		else
+		{
+			while (s[i] != c && s[i])
+				++i;
+			++word;
+		}
 	}
-	return (count);
+	return (word);
 }
 
-static int	ft_slen(char *s, char c, int s_idx)
+static char	*save_str(char *str, char c, int letter, int i)
 {
-	int	temp;
+	char	*strs;
 
-	temp = s_idx;
-	while (s[s_idx])
+	while (str[i] && s[i] != '\n')
 	{
-		if (s[s_idx] == c)
-			return (s_idx - temp);
-		s_idx++;
+		if (str[i] == c)
+			++i;
+		else
+		{
+			++letter;
+			++i;
+			if (str[i] == c)
+				break ;
+		}
 	}
-	return (s_idx - temp);
+	strs = (char *)malloc(sizeof(char) * letter + 1);
+	if (strs == NULL)
+		return (0);
+	strs[letter] = '\0';
+	while (letter >= 1)
+		strs[--letter] = str[--i];
+	return (strs);
 }
 
-static void	*ft_freemalloc(char **result, int r_idx)
+static char	*move_str(char *str, char c)
 {
-	while (r_idx + 1)
+	int	i;
+
+	i = 0;
+	while (str[i] && s[i] != '\n')
 	{
-		free(result[r_idx]);
-		r_idx--;
+		if (str[i] == c)
+			++i;
+		else
+		{
+			++i;
+			if (str[i] == c)
+				break ;
+		}	
 	}
-	free(result);
-	return (NULL);
+	return (&str[i]);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**result;
-	int		s_idx;
-	int		r_idx;
-	int		length;
+	char	**strs;
+	char	*str;
+	int		word;
+	int		i;
 
-	result = (char **)ft_calloc((ft_scount((char *)s, c) + 1), sizeof(char *));
-	if (!result)
-		return (NULL);
-	s_idx = 0;
-	r_idx = -1;
-	while (++r_idx < ft_scount((char *)s, c) && s[s_idx])
-	{
-		while (s[s_idx] == c)
-			s_idx++;
-		length = ft_slen((char *)s, c, s_idx);
-		result[r_idx] = ft_substr((char *)s, s_idx, length);
-		if (!result[r_idx])
-			return (ft_freemalloc(result, r_idx));
-		s_idx += length;
+	str = (char *)s;
+	word = count_word(str, c);
+	strs = (char **)malloc(sizeof(char *) * (word + 1));
+	if (strs == 0)
+		return (0);
+	i = -1;
+	while (++i < word)
+	{		
+		strs[i] = save_str(str, c, 0, 0);
+		if (strs[i] == 0)
+		{
+			while (i >= 0)
+				free(strs[i--]);
+			free(strs);
+			return (0);
+		}
+		str = move_str(str, c);
 	}
-	return (result);
+	strs[i] = 0;
+	return (strs);
 }
