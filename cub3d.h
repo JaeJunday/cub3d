@@ -4,8 +4,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <mlx.h>
 #include "libft/libft.h"
 #include "libft/gnl.h"
+
+#define KEYPRESS 2
 
 typedef enum e_bool
 {
@@ -33,12 +36,24 @@ typedef struct s_map_info
 	char	*ea;
 }	t_map_info;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}t_img;
+
 typedef struct s_map
 {
+	t_map_info	info;
 	t_list		*tmp;
 	char		**map;
 	char		**test_map;
-	t_map_info	info;
+	void		*mlx;
+	void		*win;
+	t_img		*img;
 	int			width;
 	int			height;
 	double		pos_x;
@@ -47,16 +62,15 @@ typedef struct s_map
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
-	int			valid_flag;
 }	t_map;
 
 //main.c
 int arg_check(int argc, char **argv);
 int parse_map(char **argv, t_map *map);
 //check_dfs.c
-t_bool	check_map(t_map *map);
-void dfs_map(t_map *map, double pos_x, double pos_y);
-int		move_map(char ***map, t_map *info, int y, int x);
+void check_map(t_map *map);
+void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag);
+int	move_map(char ***map, t_map *info, t_bool *flag);
 //check_line.c
 int 	check_line(char *line, t_map *map);
 t_bool	check_info(t_flag flag);
