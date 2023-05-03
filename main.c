@@ -22,12 +22,16 @@ int parse_map(char **argv, t_map *map)
 	char *line;
 
 	fd = open(argv[1], O_RDONLY);
+	if (!fd)
+		return (printf("Error: file open error\n"));
 	line = get_next_line(fd);
 	while (line)
 	{
 		check_line(line, map);
 		line = get_next_line(fd);
 	}
+	if (map->position != true)
+		return (map_error(map));
 	make_map_array(map, 0, 0);// 2차원 배열 할당해서 리스트를 배열로 옮기는 함수
 	check_map(map);
 	close(fd);

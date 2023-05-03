@@ -102,6 +102,6 @@ char	**ft_split(char const *s, char c)
 		}
 		str = move_str(str, c);
 	}
-	strs[i] = 0;
+	strs[i] = NULL;
 	return (strs);
 }

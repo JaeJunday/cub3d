@@ -56,6 +56,7 @@ typedef struct s_map
 	t_img		*img;
 	int			width;
 	int			height;
+	int			positon;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;

@@ -8,7 +8,7 @@ void	get_direction(t_map *map, char c)
 		if (c == 'N')
 			map->dir_y = -1;
 		else
-			map->dir_y = 0;
+			map->dir_y = 1;
 		map->plane_x = 0;
 		map->plane_y = 0.66;
 	}
@@ -46,18 +46,13 @@ int	skip_line(char *line)
 
 void	check_map_line(char *line, t_map *map, int pos_y, int i)
 {
-	static t_bool position;
-
-	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			;
 		else if (line[i] == 'N' || line[i] == 'S' \
 			  || line[i] == 'E' || line[i] == 'W')
 		{
-			if (position)
-				map_error(map);
-			position = true;
+			map->position += 1;
 			map->pos_x = i;
 			map->pos_y = pos_y;
 			get_direction(map, line[i]);

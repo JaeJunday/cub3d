@@ -87,7 +87,6 @@ void	main_loop(t_map *map)
 			draw_img(map);
 		}
 		mlx_put_image_to_window(map->mlx, map->win, map->img->img, 0, 0);
-
 	}
 }
 

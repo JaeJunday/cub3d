@@ -2,8 +2,8 @@
 
 int	move_map(char ***map, t_map *info, t_bool *flag)
 {
-	const int x = map->pos_y;
-	const int y = map->pos_x;
+	const int x = info->pos_y;
+	const int y = info->pos_x;
 
 	if (x < 0 || x >= info->height || y < 0 || y > info->width)
 		return (false);
@@ -32,9 +32,17 @@ void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag)
 {
 	if (move_map(&map->test_map, map, flag) == false)
 		return ;
+	if (flag == false)
+		return ;
 	dfs_map(map, pos_x + 1, pos_y, flag);
+	if (flag == false)
+		return ;
 	dfs_map(map, pos_x, pos_y + 1, flag);
+	if (flag == false)
+		return ;
 	dfs_map(map, pos_x - 1, pos_y, flag);
+	if (flag == false)
+		return ;
 	dfs_map(map, pos_x, pos_y - 1, flag);
 }
 
