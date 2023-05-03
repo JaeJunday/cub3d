@@ -78,6 +78,6 @@ void	get_map_data(char *line, t_map *map)
 	node = ft_lstnew(line);
 	if (node == NULL)
 		malloc_error();
-	ft_lstadd_back(&(map->tmp), node);
+	ft_lstadd_back(&(map->tmp), &(map->tmp_tail), node);
 	map->height += 1;
 }
