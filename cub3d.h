@@ -71,7 +71,6 @@ typedef struct s_map
 	t_list		*tmp;
 	t_list		*tmp_tail;
 	char		**map;
-	char		**test_map;
 	void		*mlx;
 	void		*win;
 	t_img		*img;
@@ -111,8 +110,8 @@ int arg_check(int argc, char **argv);
 int parse_map(char **argv, t_map *map);
 //check_dfs.c
 void check_map(t_map *map);
-void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag);
-int	move_map(char **map, t_map *info, t_bool *flag);
+void dfs_map(t_map *map, int x, int y, t_bool *flag);
+int	move_map(t_map *map, int y, int x, t_bool *flag);
 //check_line.c
 int 	check_line(char *line, t_map *map);
 t_bool	check_info(t_flag flag);

@@ -39,7 +39,6 @@ int parse_map(char **argv, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%s", line);
 		check_line(line, map);
 		line = get_next_line(fd);
 	}
