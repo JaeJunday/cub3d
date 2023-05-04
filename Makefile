@@ -1,27 +1,28 @@
 NAME = cub3D
-SRCS =	check_dfs.c \
-		check_line.c \
-		free_split.c \
-		get_map_data.c \
-		get_map_info.c \
+SRCS =	parsing/check_dfs.c \
+		parsing/check_line.c \
+		parsing/free_split.c \
+		parsing/get_map_data.c \
+		parsing/get_map_info.c \
 		error.c \
 		main.c 
 OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
+OBJ_DIRS = obj/parsing
 OBJS_FILES = $(addprefix $(OBJ_DIR)/, $(OBJS))
 
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LFLAGS = -lmlx -framework OpenGL -framework Appkit -lft -Llibft
 
 LIBFT = libft/libft.a
 
 all : $(NAME)
 
-$(OBJ_DIR) :
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIRS) :
+	@mkdir -p $(OBJ_DIRS)
 
-$(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
+$(OBJ_DIRS)/%.o : %.c | $(OBJ_DIRS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT) :

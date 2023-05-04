@@ -9,6 +9,8 @@
 #include "libft/gnl.h"
 
 #define KEYPRESS 2
+#define AXIS_X	0
+#define AXIS_Y	1
 
 typedef enum e_bool
 {
@@ -64,6 +66,23 @@ typedef struct s_map
 	double		plane_x;
 	double		plane_y;
 }	t_map;
+
+typedef struct s_vector
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_vector;
 
 //main.c
 int arg_check(int argc, char **argv);
