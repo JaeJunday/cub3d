@@ -6,13 +6,13 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:09 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:21 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 17:12:17 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	move_map(char ***map, t_map *info, t_bool *flag)
+int	move_map(char **map, t_map *info, t_bool *flag)
 {
 	const int x = info->pos_y;
 	const int y = info->pos_x;
@@ -20,21 +20,21 @@ int	move_map(char ***map, t_map *info, t_bool *flag)
 	if (x < 0 || x >= info->height || y < 0 || y > info->width)
 		return (false);
 	if ((x == 0 || x == info->height - 1 || y == 0 || y == info->width)
-		&& (*map)[x][y] != '1')
+		&& map[x][y] != '1')
 	{
 		info->valid_flag = false;
 		return (false);
 	}
-	if ((*map)[x][y] == '1')
+	if (map[x][y] == '1')
 		return (false);
-	else if ((*map)[x][y] == ' ' || (*map)[x][y] == '\0')
+	else if (map[x][y] == ' ' || map[x][y] == '\0')
 	{
 		info->valid_flag = false;
 		return (false);
 	}
-	else if ((*map)[x][y] == '0')
+	else if (map[x][y] == '0')
 	{
-		(*map)[x][y] = '1';
+		map[x][y] = '1';
 		return (true);
 	}
 	return (true);
@@ -42,7 +42,7 @@ int	move_map(char ***map, t_map *info, t_bool *flag)
 
 void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag)
 {
-	if (move_map(&map->test_map, map, flag) == false)
+	if (move_map(map->test_map, map, flag) == false)
 		return ;
 	if (flag == false)
 		return ;

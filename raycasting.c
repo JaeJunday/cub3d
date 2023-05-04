@@ -6,18 +6,61 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:53 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 18:07:26 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall(t_vector v)
+void	get_xpm_texture(t_map *map, t_vector *v)
+{
+	char *path;
+
+	if (v->side == AXIS_X)
+	{
+		if (v->ray_dir_y < 0)
+			path = map->info.no;
+		else if (v->ray_dir_y >= 0)
+			path = map->info.so;
+	}
+	else if(side == AXIS_Y)
+	{
+		if (v->ray_dir_x < 0)
+			path = map->info.we;
+		else if (v->ray_dir_x >= 0)
+			path = map->info.ea;
+	}
+	map->xpm->img = mlx_xpm_file_to_image(map->mlx, path, &mxpm_wid, &xpm_hei);
+	map->xpm->addr = mlx_get_data_addr(map->xpm->img, &(map->xpm->bits_per_pixel),
+		&(map->xpm->line_length), &(map->xpm->endian));
+}
+
+void	draw_wall(t_map *map, t_vector *v)
 {
 	int line_height;
+	int x;
+	int y;
 
-	line_height = /v
+	line_height = WIN_H / v->perp_wall_dist
+
+	draw_start = WIN_H / 2 - line_height / 2;
+	draw_end = WIN_H / 2 + line_height / 2;
+
+	y = draw_start;
+	double step = 1.0 * texHeight / lineHeight;
+	int tex_pos = 0;
+	while(++y < draw_end)
+	{
+		x = -1;
+		while(++x < WIN_W)
+		{
+			tex_pos += step;
+			get_xpm_texture(map, v);
+			my_mlx_pixel_put(map->img->img, x, y, );
+		}
+	}
 }
+
 void	set_side_dist(t_map *map, t_vector *v);
 {
 	if (v->ray_dir_x < 0)
@@ -74,6 +117,7 @@ void	ray_casting(t_map *map)
 
 	v.map_x = (int)map->pos_x;
 	v.map_y = (int)map->pos_y;
+	mlx_clear_window(map->mlx, map->win);
 	i = -1;
 	while(++i < 1280)
 	{
@@ -82,6 +126,7 @@ void	ray_casting(t_map *map)
 		v.ray_dir_y = map->dir_y + map->plane_y * v.camera_x;
 		v.delta_dist_x = fabs(1 / v.ray_dir_x);
 		v.delta_dist_y = fabs(1 / v.ray_dir_y);
+		clear_img(map->img, map->info->c, map->info->f);
 		set_side_dist(map, &v);
 		check_side_dda(map, &v);
 		draw_wall(map, &v);

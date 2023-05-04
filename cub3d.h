@@ -9,14 +9,32 @@
 #include "libft/gnl.h"
 
 #define KEYPRESS 2
+#define WIN_DESTROY 17
+#define ESC 53
 #define AXIS_X	0
 #define AXIS_Y	1
+#define WIN_H 720
+#define WIN_W 1280
+
+#define PI 3.141592
 
 typedef enum e_bool
 {
 	false,
 	true
 }	t_bool;
+
+typedef enum e_key
+{
+	w_key = 13,
+	a_key = 0,
+	s_key = 1,
+	d_key = 2,
+	up_key = 126
+	left_key = 123,
+	down_key = 125,
+	right_key = 124,
+}	t_key;
 
 typedef struct s_flag
 {
@@ -56,6 +74,9 @@ typedef struct s_map
 	void		*mlx;
 	void		*win;
 	t_img		*img;
+	t_img		*xpm;
+	int 		xpm_wid;
+	int 		xpm_hei;
 	int			width;
 	int			height;
 	int			positon;
@@ -90,7 +111,7 @@ int parse_map(char **argv, t_map *map);
 //check_dfs.c
 void check_map(t_map *map);
 void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag);
-int	move_map(char ***map, t_map *info, t_bool *flag);
+int	move_map(char **map, t_map *info, t_bool *flag);
 //check_line.c
 int 	check_line(char *line, t_map *map);
 t_bool	check_info(t_flag flag);

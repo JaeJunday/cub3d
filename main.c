@@ -6,7 +6,7 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:29 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:24 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 17:12:52 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 		return (1);
 	ft_memset(&map, 0, sizeof(t_map));
 	parse_map(argv, &map);
-	start(map);
+	// start(map);
 // ------------------------< test code >----------------------//
 	// printf("wid : %d, hei : %d, pos_x : %f, pos_y : %f\n", map.width, map.height, map.pos_x, map.pos_y);
 	// int i = -1;
