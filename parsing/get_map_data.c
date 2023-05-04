@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:04 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:27 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 21:44:55 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 void	get_direction(t_map *map, char c)
 {
@@ -58,11 +58,12 @@ int	skip_line(char *line)
 
 void	check_map_line(char *line, t_map *map, int pos_y, int i)
 {
+	while(line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			;
 		else if (line[i] == 'N' || line[i] == 'S' \
-			  || line[i] == 'E' || line[i] == 'W')
+				|| line[i] == 'E' || line[i] == 'W')
 		{
 			map->position += 1;
 			map->pos_x = i;
@@ -87,7 +88,8 @@ void	get_map_data(char *line, t_map *map)
 	if (skip_line(line))
 		return ;
 	check_map_line(line, map, map->height, 0);
-	node = ft_lstnew(line);
+	node = ft_lstnew(ft_strdup(line));
+	free(line);
 	if (node == NULL)
 		malloc_error();
 	ft_lstadd_back(&(map->tmp), &(map->tmp_tail), node);

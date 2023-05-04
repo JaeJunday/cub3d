@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:26 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:33:21 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:35:42 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int  free_split(char **str)
 {

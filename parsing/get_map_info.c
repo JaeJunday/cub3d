@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:47:59 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:28 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:18:51 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft/libft.h"
+#include "../cub3d.h"
 
 int	set_map_info_bg(int *color, t_bool *flag, char **info, t_map *map)
 {

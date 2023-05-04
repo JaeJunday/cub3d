@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:23 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:20 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:49:40 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	malloc_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	map_error(t_map *map)
+int	map_error(t_map *map)
 {
 	ft_lstclear(&map->tmp, free);
 	free(map->info.no);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:06 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:22 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 20:18:52 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 t_bool	check_info(t_flag flag)
 {

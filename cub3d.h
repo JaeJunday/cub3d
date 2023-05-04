@@ -30,10 +30,10 @@ typedef enum e_key
 	a_key = 0,
 	s_key = 1,
 	d_key = 2,
-	up_key = 126
+	up_key = 126,
 	left_key = 123,
 	down_key = 125,
-	right_key = 124,
+	right_key = 124
 }	t_key;
 
 typedef struct s_flag
@@ -69,6 +69,7 @@ typedef struct s_map
 {
 	t_map_info	info;
 	t_list		*tmp;
+	t_list		*tmp_tail;
 	char		**map;
 	char		**test_map;
 	void		*mlx;
@@ -79,7 +80,7 @@ typedef struct s_map
 	int 		xpm_hei;
 	int			width;
 	int			height;
-	int			positon;
+	int			position;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -119,17 +120,18 @@ t_bool	check_info(t_flag flag);
 void	get_map_data(char *line, t_map *map);
 void	check_map_line(char *line, t_map *map, int pos_y, int i);
 int		skip_line(char *line);
-void	make_map_array(t_map *map, int size, int i);
-void	copy_content(char *str, t_map *map, int i);
 //get_map_info.c
 void	get_map_info(char *line, t_map *map, t_flag *flag);
 void	set_map_info(char **info, t_map *map, t_flag *flag);
 void	set_map_info_wall(char **wall, t_bool *flag, char **info, t_map *map);
 int		set_map_info_bg(int *color, t_bool *flag, char **info, t_map *map);
+//make_map_array.c
+void	make_map_array(t_map *map, int i);
+void	copy_content(char *str, t_map *map, int i);
 //error.c
-void	map_error(t_map *map);
+int		map_error(t_map *map);
 void	malloc_error(void);
 void	format_error(char **info, t_map *map);
 //free_split.c
-int  	free_split(char **str);
+int  free_split(char **str);
 #endif

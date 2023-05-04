@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_map_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:47:56 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 12:32:29 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 21:37:52 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../cub3d.h"
 
 void	copy_content(char *str, t_map *map, int i)
 {
@@ -31,19 +33,18 @@ void	copy_content(char *str, t_map *map, int i)
 	map->test_map[i][map->width] = '\0';
 }
 
-void	make_map_array(t_map *map, int size, int i)
+void	make_map_array(t_map *map, int i)
 {
 	t_list	*temp;
 
-	size = ft_lstsize(map->tmp);
-	if (size < 3)
+	if (map->height < 3)
 		map_error(map);
-	map->map = (char **)malloc(sizeof(char *) * (size + 1));
-	map->test_map = (char **)malloc(sizeof(char *) * (size + 1));
+	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
+	map->test_map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map || !map->test_map)
 		malloc_error();
 	temp = map->tmp;
-	while(temp)
+	while(i < map->height)
 	{
 		map->map[i] = (char *)malloc(sizeof(char) * map->width + 1);
 		map->test_map[i] = (char *)malloc(sizeof(char) * map->width + 1);
@@ -51,9 +52,8 @@ void	make_map_array(t_map *map, int size, int i)
 			malloc_error();
 		copy_content(temp->content, map, i);
 		temp = temp->next;
-		++map->height;
 		++i;
 	}
-	map->map[size] = NULL;
-	map->test_map[size] = NULL;
+	map->map[map->height] = NULL;
+	map->test_map[map->height] = NULL;
 }

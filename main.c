@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:29 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 17:12:52 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 21:52:02 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ int parse_map(char **argv, t_map *map)
 	line = get_next_line(fd);
 	while (line)
 	{
+		printf("%s", line);
 		check_line(line, map);
 		line = get_next_line(fd);
 	}
-	if (map->position != true)
+	if (map->position != 1)
 		return (map_error(map));
-	make_map_array(map, 0, 0);// 2차원 배열 할당해서 리스트를 배열로 옮기는 함수
+	make_map_array(map, 0);// 2차원 배열 할당해서 리스트를 배열로 옮기는 함수
 	check_map(map);
 	close(fd);
 	return (0);

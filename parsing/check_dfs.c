@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_dfs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:09 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 17:12:17 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/04 21:21:28 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	move_map(char **map, t_map *info, t_bool *flag)
 {
@@ -22,14 +22,14 @@ int	move_map(char **map, t_map *info, t_bool *flag)
 	if ((x == 0 || x == info->height - 1 || y == 0 || y == info->width)
 		&& map[x][y] != '1')
 	{
-		info->valid_flag = false;
+		*flag = false;
 		return (false);
 	}
 	if (map[x][y] == '1')
 		return (false);
 	else if (map[x][y] == ' ' || map[x][y] == '\0')
 	{
-		info->valid_flag = false;
+		*flag = false;
 		return (false);
 	}
 	else if (map[x][y] == '0')
@@ -61,13 +61,25 @@ void dfs_map(t_map *map, double pos_x, double pos_y, t_bool *flag)
 void check_map(t_map *map)
 {
 	t_bool flag;
+	// int x;
+	// int y;
 
 	flag = true;
-	map->test_map[(int)map->pos_y][(int)map->pos_x] = '0';
+	map->map[(int)map->pos_y][(int)map->pos_x] = '0';
+	// x = -1;
+	// while(++x < map->map[y])
+	// {
+	// 	y = -1;
+	// 	while(++y < map->map[x][y])
+	// 	{
+	// 		if (map->map[x][y] == '0')
+	// 			dfs_map(map, x, y, &flag);
+	// 	}
+	// }
 	dfs_map(map, map->pos_x, map->pos_y, &flag);
 	if (flag == false)
 	{
-		clear_map_arr(map);
+		// clear_map_arr(map);
 		map_error(map);
 	}
 	//------------------
