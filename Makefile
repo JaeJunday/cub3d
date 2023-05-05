@@ -6,7 +6,11 @@ SRCS =	/parsing/check_dfs.c \
 		/parsing/get_map_info.c \
 		/parsing/make_map_array.c \
 		/error.c \
-		/main.c 
+		/main.c \
+		/mlx_hook.c \
+		/mlx_start.c \
+		/raycasting.c \
+		/rotate.c
 OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
 OBJ_DIRS = obj/parsing

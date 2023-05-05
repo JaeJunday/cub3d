@@ -6,7 +6,7 @@
 /*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:29 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 11:13:04 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:57:37 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ int parse_map(char **argv, t_map *map)
 		check_line(line, map);
 		line = get_next_line(fd);
 	}
-	if (map->position != 1)
-		return (map_error(map));
-	make_map_array(map, 0);
-	check_map(map);
 	close(fd);
+	check_map(map);
+	make_map_array(map, 0);
+	check_dfs_map(map);
 	return (0);
 }
 
@@ -58,7 +57,7 @@ int main(int argc, char **argv)
 		return (1);
 	ft_memset(&map, 0, sizeof(t_map));
 	parse_map(argv, &map);
-	// start(map);
+	start(&map);
 // ------------------------< test code >----------------------//
 	// printf("wid : %d, hei : %d, pos_x : %f, pos_y : %f\n", map.width, map.height, map.pos_x, map.pos_y);
 	// int i = -1;

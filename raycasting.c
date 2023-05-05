@@ -6,7 +6,7 @@
 /*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 15:21:58 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 18:08:18 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	get_xpm_texture_color(t_map *map, t_vector *v, int num)
 		v->wall_x = map->pos_y + v->perp_wall_dist * v->ray_dir_y;
 	else
 		v->wall_x = map->pos_x + v->perp_wall_dist * v->ray_dir_x;
-	wallX -= floor((wallX));
+	v->wall_x -= floor((v->wall_x));
 	//x coordinate on the texture
-	int texX = int(wallX * double(texWidth));
+	int v->tex_x = int(v->wall_x * double(map->xpm[]));
 	if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
 	if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
 	return (map->xpm[num].addr[v->wall_x]);
@@ -28,12 +28,12 @@ int	get_xpm_texture_color(t_map *map, t_vector *v, int num)
 
 void	get_xpm_texture(t_map *map, t_vector *v)
 {
-	char *path;
 
 	if (v->side == AXIS_X)
 	{
-		if (v->ray기dir_y < 0)
+		if (v->ray_dir_y < 0)
 			path = map->info.no;
+			return 0;
 		else if (v->ray_dir_y >= 0)
 			path = map->info.so;
 	}
@@ -45,7 +45,6 @@ void	get_xpm_texture(t_map *map, t_vector *v)
 			path = map->info.ea;
 	}
 	// 밖에서 배열에 세팅하고 리턴값으로 고르기
-	map->xpm->img = mlx_xpm_file_to_image(map->mlx, path, &xpm_wid, &xpm_hei);
 	map->xpm->addr = mlx_get_data_addr(map->xpm->img, &(map->xpm->bits_per_pixel),
 		&(map->xpm->line_length), &(map->xpm->endian));
 }
@@ -77,7 +76,7 @@ void	draw_wall(t_map *map, t_vector *v)
 	}
 }
 
-void	set_side_dist(t_map *map, t_vector *v);
+void	set_side_dist(t_map *map, t_vector *v)
 {
 	if (v->ray_dir_x < 0)
 	{
@@ -105,7 +104,7 @@ void	check_side_dda(t_map *map, t_vector *v)
 {
 	while(1)
 	{
-		if (v->side_dist_x < v->side_dist_x)
+		if (v->side_dist_x < v->side_dist_y)
 		{
 			v->side_dist_x += v->delta_dist_x;
 			v->map_x += v->step_x;

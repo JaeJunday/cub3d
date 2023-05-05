@@ -6,7 +6,7 @@
 /*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:09 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 11:27:53 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:57:28 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void dfs_map(t_map *map, int x, int y, t_bool *flag)
 		dfs_map(map, x, y - 1, flag);
 }
 
-void check_map(t_map *map)
+void check_dfs_map(t_map *map)
 {
 	t_bool flag;
 	int x;

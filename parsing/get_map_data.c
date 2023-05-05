@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:04 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 21:44:55 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 16:10:49 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	get_direction(t_map *map, char c)
 			map->dir_y = -1;
 		else
 			map->dir_y = 1;
-		map->plane_x = 0;
-		map->plane_y = 0.66;
+		map->plane_x = 0.66;
+		map->plane_y = 0;
 	}
 	else if (c == 'W' || c == 'E')
 	{
@@ -31,8 +31,8 @@ void	get_direction(t_map *map, char c)
 			map->dir_x = -1;
 		else
 			map->dir_x = 1;
-		map->plane_x = 0.66;
-		map->plane_y = 0;
+		map->plane_x = 0;
+		map->plane_y = 0.66;
 	}
 }
 

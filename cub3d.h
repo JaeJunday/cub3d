@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <math.h>
 #include <mlx.h>
 #include "libft/libft.h"
 #include "libft/gnl.h"
@@ -15,8 +16,11 @@
 #define AXIS_Y	1
 #define WIN_H 720
 #define WIN_W 1280
+#define ANGLE 3
+#define SPEED 0.5
+#define AISLE 2
 
-#define PI 3.141592
+#define PI 3.141592653589793238
 
 typedef enum e_bool
 {
@@ -103,17 +107,18 @@ typedef struct s_vector
 	int		step_x;
 	int		step_y;
 	double	wall_x;
+	double	tex_x;
 	int		side;
 }	t_vector;
 
 //-----------------------<parsing>----------------------
 //main.c
-int arg_check(int argc, char **argv);
-int parse_map(char **argv, t_map *map);
+int 	arg_check(int argc, char **argv);
+int 	parse_map(char **argv, t_map *map);
 //check_dfs.c
-void check_map(t_map *map);
-void dfs_map(t_map *map, int x, int y, t_bool *flag);
-int	move_map(t_map *map, int y, int x, t_bool *flag);
+void	check_dfs_map(t_map *map);
+void 	dfs_map(t_map *map, int x, int y, t_bool *flag);
+int		move_map(t_map *map, int y, int x, t_bool *flag);
 //check_line.c
 int 	check_line(char *line, t_map *map);
 t_bool	check_info(t_flag flag);
@@ -127,6 +132,7 @@ void	set_map_info(char **info, t_map *map, t_flag *flag);
 void	set_map_info_wall(char **wall, t_bool *flag, char **info, t_map *map);
 int		set_map_info_bg(int *color, t_bool *flag, char **info, t_map *map);
 //make_map_array.c
+void	check_map(t_map *map);
 void	make_map_array(t_map *map, int i);
 void	copy_content(char *str, t_map *map, int i);
 //error.c
@@ -134,7 +140,28 @@ int		map_error(t_map *map);
 void	malloc_error(void);
 void	format_error(char **info, t_map *map);
 //free_split.c
-int  free_split(char **str);
-//-----------------------<parsing>----------------------
+int  	free_split(char **str);
+
+//-----------------------<ray_casting>----------------------
+//mlx_start.c
+void	start(t_map *map);
+void	ft_mlx(t_map *map);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	clear_img(t_img *img, int c_color, int f_color);
+//ray_casting.c
+void	ray_casting(t_map *map);
+void	check_side_dda(t_map *map, t_vector *v);
+void	set_side_dist(t_map *map, t_vector *v);
+void	draw_wall(t_map *map, t_vector *v);
+void	get_xpm_texture(t_map *map, t_vector *v);
+int	get_xpm_texture_color(t_map *map, t_vector *v, int num);
+//mlx_hook.c
+int	key_press(int key, t_map *map);
+void	move_right_left(t_map *map, int dir);
+void	move_up_down(t_map *map, int dir);
+void	close_win(t_map *map);
+//rotate.c
+void	rotate(t_map *map, int dir);
+double	radian(double angle);
 
 #endif

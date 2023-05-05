@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   make_map_array.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:47:56 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 21:37:52 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:46:37 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	check_map(t_map *map)
+{
+	if (map->position != 1 || map->height < 3 || map->width < 3 
+		|| map->height > 1000 || map->width > 1000)
+		map_error(map);
+}
 
 void	copy_content(char *str, t_map *map, int i)
 {
@@ -34,9 +41,6 @@ void	make_map_array(t_map *map, int i)
 {
 	t_list	*temp;
 
-	if (map->height < 3 || map->width < 3 
-		|| map->height > 100 || map->width > 100)
-		map_error(map);
 	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map)
 		malloc_error();

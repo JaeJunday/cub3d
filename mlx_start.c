@@ -6,7 +6,7 @@
 /*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:20:20 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 11:34:40 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:31:29 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_mlx(t_map *map)
 void	start(t_map *map)
 {
 	ft_mlx(map);
-	mlx_hook(map->win, WIN_DESTROY, 0, exit, 0);
+	mlx_hook(map->win, WIN_DESTROY, 0, close_win, map);
 	mlx_hook(map->win, KEYPRESS, 0, func, map);
 	mlx_loop_hook(map->mlx, ray_casting, map);
 	mlx_loop(map->mlx);
