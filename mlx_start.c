@@ -62,9 +62,8 @@ void	ft_mlx(t_map *map)
 
 void	start(t_map *map)
 {
-	ft_mlx(map);
 	mlx_hook(map->win, WIN_DESTROY, 0, (void *)close_win, map);
-	mlx_hook(map->win, KEYPRESS, 0, (void *)ray_casting, map);
-	// mlx_loop_hook(map->mlx, (void *)ray_casting, map);
+	mlx_hook(map->win, KEYPRESS, 0, (void *)key_press, map);
+	mlx_loop_hook(map->mlx, (void *)ray_casting, map);
 	mlx_loop(map->mlx);
 }

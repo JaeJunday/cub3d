@@ -56,6 +56,7 @@ int main(int argc, char **argv)
 	if (arg_check(argc, argv))
 		return (1);
 	ft_memset(&map, 0, sizeof(t_map));
+	ft_mlx(&map);
 	parse_map(argv, &map);
 	start(&map);
 // ------------------------< test code >----------------------//

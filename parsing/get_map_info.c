@@ -50,17 +50,18 @@ void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map)
 	if (*flag == true)
 		format_error(info);
 	len = ft_strlen(info[1]);
-	if (len < 5 || ft_strncmp(&(info[1][len - 4]), ".xpm", 4) != 0)
+	if (len < 5 && ft_strncmp(&(info[1][len - 4]), ".xpm", 4) != 0)
 		format_error(info);
 	fd = open(info[1], O_RDONLY);
 	if (fd == -1)
 		format_error(info);
-	close(fd);
 	xpm->img = mlx_xpm_file_to_image(map->mlx, info[1], &xpm->wid, &xpm->hei);
+	// xpm->img = mlx_xpm_file_to_image(map->mlx, info[1], &xpm->wid, &xpm->hei);
 	if (xpm->img == NULL)
 		format_error(info);
 	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bits_per_pixel, &xpm->line_length, &xpm->endian);
 	*flag = true;
+	close(fd);
 	free_split(info);
 }
 
