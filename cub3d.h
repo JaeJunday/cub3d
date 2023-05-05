@@ -73,8 +73,8 @@ typedef struct s_map
 	char		**map;
 	void		*mlx;
 	void		*win;
-	t_img		*img;
-	t_img		*xpm;
+	t_img		img;
+	t_img		xpm[4];
 	int 		xpm_wid;
 	int 		xpm_hei;
 	int			width;
@@ -102,9 +102,11 @@ typedef struct s_vector
 	int		map_y;
 	int		step_x;
 	int		step_y;
+	double	wall_x;
 	int		side;
 }	t_vector;
 
+//-----------------------<parsing>----------------------
 //main.c
 int arg_check(int argc, char **argv);
 int parse_map(char **argv, t_map *map);
@@ -133,4 +135,6 @@ void	malloc_error(void);
 void	format_error(char **info, t_map *map);
 //free_split.c
 int  free_split(char **str);
+//-----------------------<parsing>----------------------
+
 #endif

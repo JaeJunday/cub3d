@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 18:07:26 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/05 15:21:58 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+int	get_xpm_texture_color(t_map *map, t_vector *v, int num)
+{
+	//아직 이해 못함
+	if (v->side == AXIS_Y) 
+		v->wall_x = map->pos_y + v->perp_wall_dist * v->ray_dir_y;
+	else
+		v->wall_x = map->pos_x + v->perp_wall_dist * v->ray_dir_x;
+	wallX -= floor((wallX));
+	//x coordinate on the texture
+	int texX = int(wallX * double(texWidth));
+	if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+	if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+	return (map->xpm[num].addr[v->wall_x]);
+}
 
 void	get_xpm_texture(t_map *map, t_vector *v)
 {
@@ -18,7 +32,7 @@ void	get_xpm_texture(t_map *map, t_vector *v)
 
 	if (v->side == AXIS_X)
 	{
-		if (v->ray_dir_y < 0)
+		if (v->ray기dir_y < 0)
 			path = map->info.no;
 		else if (v->ray_dir_y >= 0)
 			path = map->info.so;
@@ -30,7 +44,8 @@ void	get_xpm_texture(t_map *map, t_vector *v)
 		else if (v->ray_dir_x >= 0)
 			path = map->info.ea;
 	}
-	map->xpm->img = mlx_xpm_file_to_image(map->mlx, path, &mxpm_wid, &xpm_hei);
+	// 밖에서 배열에 세팅하고 리턴값으로 고르기
+	map->xpm->img = mlx_xpm_file_to_image(map->mlx, path, &xpm_wid, &xpm_hei);
 	map->xpm->addr = mlx_get_data_addr(map->xpm->img, &(map->xpm->bits_per_pixel),
 		&(map->xpm->line_length), &(map->xpm->endian));
 }
@@ -41,7 +56,7 @@ void	draw_wall(t_map *map, t_vector *v)
 	int x;
 	int y;
 
-	line_height = WIN_H / v->perp_wall_dist
+	line_height = WIN_H / v->perp_wall_dis;
 
 	draw_start = WIN_H / 2 - line_height / 2;
 	draw_end = WIN_H / 2 + line_height / 2;
@@ -56,7 +71,8 @@ void	draw_wall(t_map *map, t_vector *v)
 		{
 			tex_pos += step;
 			get_xpm_texture(map, v);
-			my_mlx_pixel_put(map->img->img, x, y, );
+			int num = get_xpm_texture_color(map, v);
+			my_mlx_pixel_put(map->img->img, x, y, num);
 		}
 	}
 }
@@ -93,13 +109,13 @@ void	check_side_dda(t_map *map, t_vector *v)
 		{
 			v->side_dist_x += v->delta_dist_x;
 			v->map_x += v->step_x;
-			v->side = AXIS_X;
+			v->side = AXIS_Y;
 		}
 		else
 		{
 			v->side_dist_x += v->delta_dist_y;
 			v->map_y += v->step_y;
-			v->side = AXIS_Y;
+			v->side = AXIS_X;
 		}
 		if (map->map[v->map_x][v->map_y] == '1')
 			break;

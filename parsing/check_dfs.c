@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_dfs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:09 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 21:21:28 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/05 11:27:53 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ int	move_map(t_map *map, int y, int x, t_bool *flag)
 		*flag = false;
 		return (false);
 	}
+	else if (map->map[x][y] == ' ')
+	{
+		*flag = false;
+		return (false);
+	}
 	else if (map->map[x][y] == '1' || map->map[x][y] == '2')
 		return (false);
-	else if (map->map[x][y] == '0' || map->map[x][y] == ' ')
+	else if (map->map[x][y] == '0')
 	{
 		map->map[x][y] = '2';
 		return (true);
@@ -35,10 +40,14 @@ void dfs_map(t_map *map, int x, int y, t_bool *flag)
 {
 	if (move_map(map, x, y, flag) == false)
 		return ;
-	dfs_map(map, x + 1, y, flag);
-	dfs_map(map, x, y + 1, flag);
-	dfs_map(map, x - 1, y, flag);
-	dfs_map(map, x, y - 1, flag);
+	if (*flag == true)
+		dfs_map(map, x + 1, y, flag);
+	if (*flag == true)
+		dfs_map(map, x, y + 1, flag);
+	if (*flag == true)
+		dfs_map(map, x - 1, y, flag);
+	if (*flag == true)
+		dfs_map(map, x, y - 1, flag);
 }
 
 void check_map(t_map *map)

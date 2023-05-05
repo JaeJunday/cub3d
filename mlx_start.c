@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_start.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 12:20:20 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/04 17:45:13 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/05 11:34:40 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 	if (x < 0 || x > 1280 || y < 0 || y > 720)
 		return ;
-	dst = img->addr + (y * img->line_length
-			+ x * (img->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 
