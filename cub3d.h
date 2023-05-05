@@ -18,7 +18,8 @@
 #define WIN_W 1280
 #define ANGLE 3
 #define SPEED 0.5
-#define AISLE 2
+#define WALL '1'
+#define AISLE '2'
 
 #define PI 3.141592653589793238
 
@@ -54,10 +55,6 @@ typedef struct s_map_info
 {
 	int		f;
 	int		c;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
 }	t_map_info;
 
 typedef struct s_img
@@ -67,6 +64,8 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		wid;
+	int		hei;
 }t_img;
 
 typedef struct s_map
@@ -79,8 +78,6 @@ typedef struct s_map
 	void		*win;
 	t_img		img;
 	t_img		xpm[4];
-	int 		xpm_wid;
-	int 		xpm_hei;
 	int			width;
 	int			height;
 	int			position;
@@ -107,7 +104,8 @@ typedef struct s_vector
 	int		step_x;
 	int		step_y;
 	double	wall_x;
-	double	tex_x;
+	int	tex_x;
+	int	tex_y;
 	int		side;
 }	t_vector;
 
@@ -129,8 +127,8 @@ int		skip_line(char *line);
 //get_map_info.c
 void	get_map_info(char *line, t_map *map, t_flag *flag);
 void	set_map_info(char **info, t_map *map, t_flag *flag);
-void	set_map_info_wall(char **wall, t_bool *flag, char **info, t_map *map);
-int		set_map_info_bg(int *color, t_bool *flag, char **info, t_map *map);
+void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map);
+void	set_map_info(char **info, t_map *map, t_flag *flag);
 //make_map_array.c
 void	check_map(t_map *map);
 void	make_map_array(t_map *map, int i);
@@ -138,7 +136,7 @@ void	copy_content(char *str, t_map *map, int i);
 //error.c
 int		map_error(t_map *map);
 void	malloc_error(void);
-void	format_error(char **info, t_map *map);
+void	format_error(char **info);
 //free_split.c
 int  	free_split(char **str);
 
@@ -152,11 +150,11 @@ void	clear_img(t_img *img, int c_color, int f_color);
 void	ray_casting(t_map *map);
 void	check_side_dda(t_map *map, t_vector *v);
 void	set_side_dist(t_map *map, t_vector *v);
-void	draw_wall(t_map *map, t_vector *v);
-void	get_xpm_texture(t_map *map, t_vector *v);
-int	get_xpm_texture_color(t_map *map, t_vector *v, int num);
+void	draw_wall(t_map *map, t_vector *v, int x);
+int	get_xpm_texture(t_vector *v);
+void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm);
 //mlx_hook.c
-int	key_press(int key, t_map *map);
+int		key_press(int key, t_map *map);
 void	move_right_left(t_map *map, int dir);
 void	move_up_down(t_map *map, int dir);
 void	close_win(t_map *map);

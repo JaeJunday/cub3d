@@ -54,17 +54,17 @@ void	ft_mlx(t_map *map)
 {
 	map->mlx = mlx_init();
 	map->win = mlx_new_window(map->mlx, 1280, 720, "cub3D");
-	map->img->img = mlx_new_image(map->mlx, 1280, 720);
-	map->img->addr
-		= mlx_get_data_addr(map->img->img, &(map->img->bits_per_pixel),
-			&(map->img->line_length), &(map->img->endian));
+	map->img.img = mlx_new_image(map->mlx, 1280, 720);
+	map->img.addr
+		= mlx_get_data_addr(map->img.img, &(map->img.bits_per_pixel),
+			&(map->img.line_length), &(map->img.endian));
 }
 
 void	start(t_map *map)
 {
 	ft_mlx(map);
-	mlx_hook(map->win, WIN_DESTROY, 0, close_win, map);
-	mlx_hook(map->win, KEYPRESS, 0, func, map);
-	mlx_loop_hook(map->mlx, ray_casting, map);
+	mlx_hook(map->win, WIN_DESTROY, 0, (void *)close_win, map);
+	mlx_hook(map->win, KEYPRESS, 0, (void *)ray_casting, map);
+	// mlx_loop_hook(map->mlx, (void *)ray_casting, map);
 	mlx_loop(map->mlx);
 }

@@ -21,25 +21,13 @@ void	malloc_error(void)
 int	map_error(t_map *map)
 {
 	ft_lstclear(&map->tmp, free);
-	free(map->info.no);
-	free(map->info.so);
-	free(map->info.ea);
-	free(map->info.we);
 	printf("Error : invalid map\n");
 	exit(EXIT_FAILURE);
 }
 
-void	format_error(char **info, t_map *map)
+void	format_error(char **info)
 {
 	free_split(info);
-	if (map->info.no)
-		free(map->info.no);
-	if (map->info.so)
-		free(map->info.so);
-	if (map->info.we)
-		free(map->info.we);
-	if (map->info.ea)
-		free(map->info.ea);
 	printf("Error : invalid format\n");
 	exit(EXIT_FAILURE);
 }

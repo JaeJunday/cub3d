@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-int	get_xpm_texture_color(t_map *map, t_vector *v, int num)
+
+void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm)
 {
 	//아직 이해 못함
 	if (v->side == AXIS_Y) 
@@ -20,59 +21,64 @@ int	get_xpm_texture_color(t_map *map, t_vector *v, int num)
 		v->wall_x = map->pos_x + v->perp_wall_dist * v->ray_dir_x;
 	v->wall_x -= floor((v->wall_x));
 	//x coordinate on the texture
-	int v->tex_x = int(v->wall_x * double(map->xpm[]));
-	if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-	if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
-	return (map->xpm[num].addr[v->wall_x]);
+	v->tex_x = (int)(v->wall_x * xpm->wid);
+	if((v->side == AXIS_X && v->ray_dir_x > 0)
+		|| (v->side == AXIS_Y && v->ray_dir_y < 0)) 
+		v->tex_x = xpm->wid - v->tex_x - 1;
 }
 
-void	get_xpm_texture(t_map *map, t_vector *v)
+int get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
 {
+	int *addr;
 
+	if (tex_pos >= xpm->hei)
+		return (false);
+	addr = (int *)xpm->addr;
+	return (addr[(int)tex_pos * xpm->wid + v->tex_x]);
+}
+
+int	get_xpm_texture(t_vector *v)
+{
 	if (v->side == AXIS_X)
 	{
-		if (v->ray_dir_y < 0)
-			path = map->info.no;
-			return 0;
-		else if (v->ray_dir_y >= 0)
-			path = map->info.so;
+		if (v->ray_dir_y < 0) // 북
+			return (0);
+		else if (v->ray_dir_y >= 0) // 남
+			return (2);
 	}
-	else if(side == AXIS_Y)
+	else if(v->side == AXIS_Y)
 	{
-		if (v->ray_dir_x < 0)
-			path = map->info.we;
-		else if (v->ray_dir_x >= 0)
-			path = map->info.ea;
+		if (v->ray_dir_x < 0) // 서
+			return (3);
+		else if (v->ray_dir_x >= 0) //동
+			return (1);
 	}
-	// 밖에서 배열에 세팅하고 리턴값으로 고르기
-	map->xpm->addr = mlx_get_data_addr(map->xpm->img, &(map->xpm->bits_per_pixel),
-		&(map->xpm->line_length), &(map->xpm->endian));
+	return (true);
 }
 
-void	draw_wall(t_map *map, t_vector *v)
+void	draw_wall(t_map *map, t_vector *v, int x)
 {
 	int line_height;
-	int x;
+	int tex_pos;
 	int y;
+	double step;
+	int tex_num;
+	int draw_start;
+	int draw_end;
 
-	line_height = WIN_H / v->perp_wall_dis;
-
+	tex_num = get_xpm_texture(v);
+	line_height = WIN_H / v->perp_wall_dist;
 	draw_start = WIN_H / 2 - line_height / 2;
 	draw_end = WIN_H / 2 + line_height / 2;
-
+	step = (double)map->xpm[tex_num].hei / line_height;
+	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
+	tex_pos = 0;
 	y = draw_start;
-	double step = 1.0 * texHeight / lineHeight;
-	int tex_pos = 0;
 	while(++y < draw_end)
 	{
-		x = -1;
-		while(++x < WIN_W)
-		{
-			tex_pos += step;
-			get_xpm_texture(map, v);
-			int num = get_xpm_texture_color(map, v);
-			my_mlx_pixel_put(map->img->img, x, y, num);
-		}
+		int color = get_xpm_texture_color(&map->xpm[tex_num], v, tex_pos);
+		my_mlx_pixel_put(map->img.img, x, y, color);
+		tex_pos += step;
 	}
 }
 
@@ -116,13 +122,13 @@ void	check_side_dda(t_map *map, t_vector *v)
 			v->map_y += v->step_y;
 			v->side = AXIS_X;
 		}
-		if (map->map[v->map_x][v->map_y] == '1')
+		if (map->map[v->map_x][v->map_y] == WALL)
 			break;
 	}
 	if (v->side == AXIS_X) 
-		v->perp_wall_dist = (v->mapX - v->posX + (1 - v->stepX) / 2) / v->rayDirX;
+		v->perp_wall_dist = (v->map_x - map->pos_x + (1 - v->step_x) / 2) / v->ray_dir_x;
 	else
-		v->perp_wall_dist = (v->mapY - v->posY + (1 - v->stepY) / 2) / v->rayDirY;
+		v->perp_wall_dist = (v->map_y - map->pos_y + (1 - v->step_y) / 2) / v->ray_dir_y;
 }
 
 void	ray_casting(t_map *map)
@@ -132,19 +138,18 @@ void	ray_casting(t_map *map)
 
 	v.map_x = (int)map->pos_x;
 	v.map_y = (int)map->pos_y;
-	mlx_clear_window(map->mlx, map->win);
+	clear_img(&map->img, map->info.c, map->info.f);
 	i = -1;
-	while(++i < 1280)
+	while(++i < WIN_W)
 	{
 		v.camera_x = 2 * i / (double)1280 - 1;
 		v.ray_dir_x = map->dir_x + map->plane_x * v.camera_x;
 		v.ray_dir_y = map->dir_y + map->plane_y * v.camera_x;
 		v.delta_dist_x = fabs(1 / v.ray_dir_x);
 		v.delta_dist_y = fabs(1 / v.ray_dir_y);
-		clear_img(map->img, map->info->c, map->info->f);
 		set_side_dist(map, &v);
 		check_side_dda(map, &v);
-		draw_wall(map, &v);
+		draw_wall(map, &v, i);
 	}
-	mlx_put_image_to_window(map->mlx, map->win, map->img->img, 0, 0);
+	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
 }
