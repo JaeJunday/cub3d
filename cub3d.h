@@ -17,11 +17,11 @@
 #define WIN_H 720
 #define WIN_W 1280
 #define ANGLE 3
-#define SPEED 0.5
+#define SPEED 0.1
 #define WALL '1'
 #define AISLE '2'
 
-#define PI 3.141592653589793238
+#define PI 3.141592
 
 typedef enum e_bool
 {
@@ -104,8 +104,8 @@ typedef struct s_vector
 	int		step_x;
 	int		step_y;
 	double	wall_x;
-	int	tex_x;
-	int	tex_y;
+	int		tex_x;
+	int		tex_y;
 	int		side;
 }	t_vector;
 
@@ -131,8 +131,8 @@ void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map);
 void	set_map_info(char **info, t_map *map, t_flag *flag);
 //make_map_array.c
 void	check_map(t_map *map);
-void	make_map_array(t_map *map, int i);
-void	copy_content(char *str, t_map *map, int i);
+void	make_map_array(t_map *map);
+void	copy_content(char *src, char *map, int width);
 //error.c
 int		map_error(t_map *map);
 void	malloc_error(void);

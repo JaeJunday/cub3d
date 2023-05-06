@@ -55,13 +55,14 @@ SRCS	= 	ft_atoi.c\
 OBJS	=	$(SRCS:.c=.o)
 
 %.o		:	%.c
-			$(CC) $(CFLAGS) -c $< -o $@ -I$(INC)
+			@$(CC) $(CFLAGS) -c $< -o $@ -I$(INC)
 
 .PHONY	:	all
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)													
-			$(AR) $(ARFLAGS) $@ $?
+			@$(AR) $(ARFLAGS) $@ $?
+			@echo "make libft.a"
 
 .PHONY	:	clean
 clean	:

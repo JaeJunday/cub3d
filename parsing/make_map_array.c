@@ -19,38 +19,40 @@ void	check_map(t_map *map)
 		map_error(map);
 }
 
-void	copy_content(char *str, t_map *map, int i)
+void	copy_content(char *src, char *map, int width)
 {
 	int j;
 	
 	j = 0;
-	while (str[j] && str[j] != '\n')
+	while (src[j] && src[j] != '\n')
 	{
-		map->map[i][j] = str[j];
+		map[j] = src[j];
 		++j;
 	}
-	while (j < map->width)
+	while (j < width)
 	{
-		map->map[i][j] = ' ';
+		map[j] = ' ';
 		++j;
 	}
-	map->map[i][map->width] = '\0';
+	map[width] = '\0';
 }
 
-void	make_map_array(t_map *map, int i)
+void	make_map_array(t_map *map)
 {
 	t_list	*temp;
+	int 	i;
 
 	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map)
 		malloc_error();
 	temp = map->tmp;
+	i = 0;
 	while(i < map->height)
 	{
-		map->map[i] = (char *)malloc(sizeof(char) * map->width + 1);
+		map->map[i] = (char *)malloc(sizeof(char) * (map->width + 1));
 		if (!map->map)
 			malloc_error();
-		copy_content(temp->content, map, i);
+		copy_content(temp->content, map->map[i], map->width);
 		temp = temp->next;
 		++i;
 	}

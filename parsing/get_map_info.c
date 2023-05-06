@@ -56,7 +56,6 @@ void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map)
 	if (fd == -1)
 		format_error(info);
 	xpm->img = mlx_xpm_file_to_image(map->mlx, info[1], &xpm->wid, &xpm->hei);
-	// xpm->img = mlx_xpm_file_to_image(map->mlx, info[1], &xpm->wid, &xpm->hei);
 	if (xpm->img == NULL)
 		format_error(info);
 	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bits_per_pixel, &xpm->line_length, &xpm->endian);

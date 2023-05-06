@@ -18,21 +18,31 @@ void	get_direction(t_map *map, char c)
 	{
 		map->dir_x = 0;
 		if (c == 'N')
+		{
 			map->dir_y = -1;
+			map->plane_x = 0.66;
+		}
 		else
+		{
 			map->dir_y = 1;
-		map->plane_x = 0.66;
+			map->plane_x = -0.66;
+		}
 		map->plane_y = 0;
 	}
 	else if (c == 'W' || c == 'E')
 	{
 		map->dir_y = 0;
 		if (c == 'W')
+		{
 			map->dir_x = -1;
+			map->plane_y = 0.66;
+		}
 		else
+		{
 			map->dir_x = 1;
+			map->plane_y = -0.66;
+		}
 		map->plane_x = 0;
-		map->plane_y = 0.66;
 	}
 }
 

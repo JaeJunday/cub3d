@@ -44,7 +44,7 @@ int parse_map(char **argv, t_map *map)
 	}
 	close(fd);
 	check_map(map);
-	make_map_array(map, 0);
+	make_map_array(map);
 	check_dfs_map(map);
 	return (0);
 }

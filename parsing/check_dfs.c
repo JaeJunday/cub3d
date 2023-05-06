@@ -75,8 +75,8 @@ void check_dfs_map(t_map *map)
 		map_error(map);
 	}
 	//------------------
-	int i = -1;
-	while(map->map[++i])
-		printf("%s\n", map->map[i]);
+	// int i = -1;
+	// while(map->map[++i])
+	// 	printf("%s\n", map->map[i]);
 	// ---------------s
 }
