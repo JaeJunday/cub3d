@@ -17,7 +17,7 @@
 #define WIN_H 720
 #define WIN_W 1280
 #define ANGLE 3
-#define SPEED 0.1
+#define SPEED 0.2
 #define WALL '1'
 #define AISLE '2'
 #define PLAIN 0.66

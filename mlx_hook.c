@@ -25,7 +25,6 @@ void	move_up_down(t_map *map, int dir)
 	
 	delta_x = (map->dir_x * SPEED * dir);
 	delta_y = (map->dir_y * SPEED * dir);
-	printf("deltaX, deltaY : %f %f\n", map->pos_x, map->pos_y);
 	if (map->pos_x + delta_x > 0
 		&& map->pos_x + delta_x < map->width - 1
 		&& map->map[(int)map->pos_y][(int)(map->pos_x + delta_x)] == AISLE)
@@ -41,10 +40,8 @@ void	move_right_left(t_map *map, int dir)
 	double	dir_x;
 	double	dir_y;
 
-	printf("deltaX, deltaY : %f %f\n", map->pos_x, map->pos_y);
 	dir_x = cos(radian(90 * dir)) * map->dir_x - sin(radian(90 * dir)) * map->dir_y;
 	dir_y = sin(radian(90 * dir)) * map->dir_x + cos(radian(90 * dir)) * map->dir_y;
-	printf("deltaX, deltaY : %f %f\n", map->pos_x + dir_x * SPEED, map->pos_y + dir_y * SPEED);
 	if (map->pos_x + dir_x * SPEED > 0
 		&& map->pos_x + dir_x * SPEED < map->width - 1
 		&& map->map[(int)map->pos_y][(int)(map->pos_x + dir_x * SPEED)] == AISLE)

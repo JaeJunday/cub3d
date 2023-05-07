@@ -75,7 +75,7 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 	if (draw_end >= WIN_H)
 		draw_end = WIN_H - 1;
 	step = (double)map->xpm[tex_num].hei / line_height;
-	tex_pos = 0;
+	tex_pos = (draw_start - WIN_H / 2 + line_height / 2) * step;
 	y = draw_start;
 	while (y < draw_end)
 	{
