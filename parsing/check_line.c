@@ -20,7 +20,7 @@ t_bool	check_info(t_flag flag)
 	return (false);
 }
 
-int check_line(char *line, t_map *map)
+int	check_line(char *line, t_map *map)
 {
 	static t_flag	flag;
 

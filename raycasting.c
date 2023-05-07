@@ -14,27 +14,22 @@
 
 void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm)
 {
-	//아직 이해 못함
 	if (v->side == AXIS_Y) 
 		v->wall_x = map->pos_y + v->perp_wall_dist * v->ray_dir_y;
 	else
 		v->wall_x = map->pos_x + v->perp_wall_dist * v->ray_dir_x;
 	v->wall_x -= floor((v->wall_x));
-	//x coordinate on the texture
 	v->tex_x = (int)(v->wall_x * xpm->wid);
 	if((v->side == AXIS_Y && v->ray_dir_x > 0) || (v->side == AXIS_X && v->ray_dir_y < 0)) 
 		v->tex_x = xpm->wid - v->tex_x - 1;
 }
 
-int get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
+int	get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
 {
-	int *addr;
-	int index;
+	int	*addr;
+	int	index;
 
-	//if (tex_pos >= xpm->hei)
-	//	return (false);
 	addr = (int *)xpm->addr;
-
 	index = (tex_pos * xpm->wid + (xpm->wid - v->tex_x) - 1);
 	return (addr[index]);
 }
@@ -43,16 +38,16 @@ int	get_xpm_texture(t_vector *v)
 {
 	if (v->side == AXIS_X)
 	{
-		if (v->ray_dir_y < 0) // 북
+		if (v->ray_dir_y < 0)
 			return (0);
-		else if (v->ray_dir_y >= 0) // 남
+		else if (v->ray_dir_y >= 0)
 			return (2);
 	}
-	else if(v->side == AXIS_Y)
+	else if (v->side == AXIS_Y)
 	{
-		if (v->ray_dir_x < 0) // 서
+		if (v->ray_dir_x < 0)
 			return (3);
-		else if (v->ray_dir_x >= 0) //동
+		else if (v->ray_dir_x >= 0)
 			return (1);
 	}
 	return (true);
@@ -60,13 +55,13 @@ int	get_xpm_texture(t_vector *v)
 
 void	draw_wall(t_map *map, t_vector *v, int x)
 {
-	int line_height;
-	double tex_pos;
-	int y;
-	double step;
-	int tex_num;
-	int draw_start;
-	int draw_end;
+	int		line_height;
+	double	tex_pos;
+	int		y;
+	double	step;
+	int		tex_num;
+	int		draw_start;
+	int		draw_end;
 
 	tex_num = get_xpm_texture(v);
 	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
@@ -116,7 +111,7 @@ void	set_side_dist(t_map *map, t_vector *v)
 
 void	check_side_dda(t_map *map, t_vector *v)
 {
-	while(1)
+	while (1)
 	{
 		if (v->side_dist_x < v->side_dist_y)
 		{

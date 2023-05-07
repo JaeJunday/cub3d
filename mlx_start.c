@@ -53,8 +53,8 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 void	ft_mlx(t_map *map)
 {
 	map->mlx = mlx_init();
-	map->win = mlx_new_window(map->mlx, 1280, 720, "cub3D");
-	map->img.img = mlx_new_image(map->mlx, 1280, 720);
+	map->win = mlx_new_window(map->mlx, WIN_W, WIN_H, "cub3D");
+	map->img.img = mlx_new_image(map->mlx, WIN_W, WIN_H);
 	map->img.addr
 		= mlx_get_data_addr(map->img.img, &(map->img.bits_per_pixel),
 			&(map->img.line_length), &(map->img.endian));

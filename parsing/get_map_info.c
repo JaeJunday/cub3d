@@ -44,7 +44,7 @@ int	set_map_info_bg(int *color, t_bool *flag, char **info)
 
 void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map)
 {
-	int fd;
+	int	fd;
 	int	len;
 
 	if (*flag == true)
@@ -58,7 +58,8 @@ void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map)
 	xpm->img = mlx_xpm_file_to_image(map->mlx, info[1], &xpm->wid, &xpm->hei);
 	if (xpm->img == NULL)
 		format_error(info);
-	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bits_per_pixel, &xpm->line_length, &xpm->endian);
+	xpm->addr = mlx_get_data_addr(xpm->img, &xpm->bits_per_pixel, \
+		&xpm->line_length, &xpm->endian);
 	*flag = true;
 	close(fd);
 	free_split(info);
@@ -66,21 +67,17 @@ void	set_map_info_wall(t_img *xpm, t_bool *flag, char **info, t_map *map)
 
 void	set_map_info(char **info, t_map *map, t_flag *flag)
 {
-	if (info[0][0] == 'F' && info[0][1] == '\0')
+	if (!ft_strncmp(info[0], "F", 2))
 		set_map_info_bg(&map->info.f, &flag->f, info);
-	else if(info[0][0] == 'C' && info[0][1] == '\0')
+	else if (!ft_strncmp(info[0], "C", 2))
 		set_map_info_bg(&map->info.c, &flag->c, info);
-	else if (info[0][0] == 'N' && info[0][1] == 'O'
-			&& info[0][2] == '\0')
+	else if (!ft_strncmp(info[0], "NO", 3))
 		set_map_info_wall(&(map->xpm[0]), &flag->no, info, map);
-	else if(info[0][0] == 'E' && info[0][1] == 'A'
-			&& info[0][2] == '\0')
+	else if (!ft_strncmp(info[0], "EA", 3))
 		set_map_info_wall(&(map->xpm[1]), &flag->so, info, map);
-	else if(info[0][0] == 'S' && info[0][1] == 'O'
-			&& info[0][2] == '\0')
+	else if (!ft_strncmp(info[0], "SO", 3))
 		set_map_info_wall(&(map->xpm[2]), &flag->we, info, map);
-	else if(info[0][0] == 'W' && info[0][1] == 'E'
-			&& info[0][2] == '\0')
+	else if (!ft_strncmp(info[0], "WE", 3))
 		set_map_info_wall(&(map->xpm[3]), &flag->ea, info, map);
 	else
 		format_error(info);

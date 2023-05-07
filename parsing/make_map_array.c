@@ -14,15 +14,15 @@
 
 void	check_map(t_map *map)
 {
-	if (map->position != 1 || map->height < 3 || map->width < 3 
+	if (map->position != 1 || map->height < 3 || map->width < 3
 		|| map->height > 1000 || map->width > 1000)
 		map_error(map);
 }
 
 void	copy_content(char *src, char *map, int width)
 {
-	int j;
-	
+	int	j;
+
 	j = 0;
 	while (src[j] && src[j] != '\n')
 	{
@@ -40,14 +40,14 @@ void	copy_content(char *src, char *map, int width)
 void	make_map_array(t_map *map)
 {
 	t_list	*temp;
-	int 	i;
+	int		i;
 
 	map->map = (char **)malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map)
 		malloc_error();
 	temp = map->tmp;
 	i = 0;
-	while(i < map->height)
+	while (i < map->height)
 	{
 		map->map[i] = (char *)malloc(sizeof(char) * (map->width + 1));
 		if (!map->map)

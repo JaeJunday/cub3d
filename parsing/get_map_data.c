@@ -68,7 +68,7 @@ int	skip_line(char *line)
 
 void	check_map_line(char *line, t_map *map, int pos_y, int i)
 {
-	while(line[i] && line[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == '1' || line[i] == '0' || line[i] == ' ')
 			;

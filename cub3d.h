@@ -14,8 +14,8 @@
 #define ESC 53
 #define AXIS_X	0
 #define AXIS_Y	1
-#define WIN_H 720
-#define WIN_W 1280
+#define WIN_H 1200
+#define WIN_W 2200
 #define ANGLE 3
 #define SPEED 0.2
 #define WALL '1'
