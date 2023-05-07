@@ -76,8 +76,8 @@ void	check_map_line(char *line, t_map *map, int pos_y, int i)
 				|| line[i] == 'E' || line[i] == 'W')
 		{
 			map->position += 1;
-			map->pos_x = i;
-			map->pos_y = pos_y;
+			map->pos_x = i + 0.5;
+			map->pos_y = pos_y + 0.5;
 			get_direction(map, line[i]);
 		}
 		else
