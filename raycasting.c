@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 18:08:18 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/07 17:02:42 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
 {
 	int *addr;
 
-	if (tex_pos >= xpm->hei)
-		return (false);
+	//if (tex_pos >= xpm->hei)
+	//	return (false);
 	addr = (int *)xpm->addr;
 	return (addr[(int)tex_pos * xpm->wid + v->tex_x]);
 }
@@ -47,9 +47,9 @@ int	get_xpm_texture(t_vector *v)
 	}
 	else if(v->side == AXIS_Y)
 	{
-		if (v->ray_dir_x < 0) // 서
+		if (v->ray_dir_x > 0) // 서
 			return (3);
-		else if (v->ray_dir_x >= 0) //동
+		else if (v->ray_dir_x <= 0) //동
 			return (1);
 	}
 	return (true);
@@ -58,7 +58,7 @@ int	get_xpm_texture(t_vector *v)
 void	draw_wall(t_map *map, t_vector *v, int x)
 {
 	int line_height;
-	int tex_pos;
+	double tex_pos;
 	int y;
 	double step;
 	int tex_num;
@@ -66,6 +66,7 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 	int draw_end;
 
 	tex_num = get_xpm_texture(v);
+	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
 	line_height = (int)(WIN_H / v->perp_wall_dist);
 	draw_start = WIN_H / 2 - line_height / 2;
 	draw_end = WIN_H / 2 + line_height / 2;
@@ -74,14 +75,15 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 	if (draw_end >= WIN_H)
 		draw_end = WIN_H - 1;
 	step = (double)map->xpm[tex_num].hei / line_height;
-	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
 	tex_pos = 0;
 	y = draw_start;
-	while(++y < draw_end)
+	while (y < draw_end)
 	{
-		int color = get_xpm_texture_color(&map->xpm[tex_num], v, tex_pos);
+		int tex_y = (int)tex_pos & (map->xpm[tex_num].hei - 1);
+		int color = get_xpm_texture_color(&map->xpm[tex_num], v, tex_y);
 		my_mlx_pixel_put(&map->img, x, y, color);
 		tex_pos += step;
+		++y;
 	}
 }
 
@@ -125,7 +127,11 @@ void	check_side_dda(t_map *map, t_vector *v)
 			v->map_y += v->step_y;
 			v->side = AXIS_X;
 		}
-		if (map->map[v->map_x][v->map_y] == WALL)
+		if (v->map_x >= 0
+			&& v->map_x <= map->width - 1
+			&& v->map_y >= 0
+			&& v->map_y <= map->height - 1
+			&& map->map[v->map_y][v->map_x] == WALL)
 			break;
 	}
 	if (v->side == AXIS_Y) 
@@ -150,7 +156,6 @@ void	ray_casting(t_map *map)
 		v.ray_dir_y = map->dir_y + map->plane_y * v.camera_x;
 		v.delta_dist_x = fabs(1 / v.ray_dir_x);
 		v.delta_dist_y = fabs(1 / v.ray_dir_y);
-
 		set_side_dist(map, &v);
 		check_side_dda(map, &v);
 		draw_wall(map, &v, i);

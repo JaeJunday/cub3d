@@ -17,7 +17,8 @@ OBJ_DIRS = obj/parsing
 OBJS_FILES = $(addprefix $(OBJ_DIR),$(OBJS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror 
+#-fsanitize=address -g
 LFLAGS = -lmlx -framework OpenGL -framework Appkit -lft -Llibft
 
 LIBFT = libft/libft.a

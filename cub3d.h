@@ -20,6 +20,7 @@
 #define SPEED 0.1
 #define WALL '1'
 #define AISLE '2'
+#define PLAIN 0.66
 
 #define PI 3.141592
 
