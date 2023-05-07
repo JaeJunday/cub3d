@@ -34,12 +34,12 @@ void	get_direction(t_map *map, char c)
 		map->dir_y = 0;
 		if (c == 'W')
 		{
-			map->dir_x = 1;
+			map->dir_x = -1;
 			map->plane_y = -PLAIN;
 		}
 		else
 		{
-			map->dir_x = -1;
+			map->dir_x = 1;
 			map->plane_y = PLAIN;
 		}
 		map->plane_x = 0;

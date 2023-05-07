@@ -29,11 +29,14 @@ void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm)
 int get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
 {
 	int *addr;
+	int index;
 
 	//if (tex_pos >= xpm->hei)
 	//	return (false);
 	addr = (int *)xpm->addr;
-	return (addr[(int)tex_pos * xpm->wid + v->tex_x]);
+
+	index = (tex_pos * xpm->wid + (xpm->wid - v->tex_x) - 1);
+	return (addr[index]);
 }
 
 int	get_xpm_texture(t_vector *v)
@@ -47,9 +50,9 @@ int	get_xpm_texture(t_vector *v)
 	}
 	else if(v->side == AXIS_Y)
 	{
-		if (v->ray_dir_x > 0) // 서
+		if (v->ray_dir_x < 0) // 서
 			return (3);
-		else if (v->ray_dir_x <= 0) //동
+		else if (v->ray_dir_x >= 0) //동
 			return (1);
 	}
 	return (true);

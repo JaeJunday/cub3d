@@ -55,9 +55,9 @@ int	key_press(int key, t_map *map)
 	else if (key == d_key)
 		move_right_left(map, -1);
 	else if (key == left_key)
-		rotate(map, 1);
-	else if (key == right_key)
 		rotate(map, -1);
+	else if (key == right_key)
+		rotate(map, 1);
 	else if (key == ESC)
 		close_win(map);
 	return (true);
