@@ -127,11 +127,7 @@ void	check_side_dda(t_map *map, t_vector *v)
 			v->map_y += v->step_y;
 			v->side = AXIS_X;
 		}
-		if (v->map_x >= 0
-			&& v->map_x <= map->width - 1
-			&& v->map_y >= 0
-			&& v->map_y <= map->height - 1
-			&& map->map[v->map_y][v->map_x] == WALL)
+		if (map->map[v->map_y][v->map_x] == WALL)
 			break;
 	}
 	if (v->side == AXIS_Y) 

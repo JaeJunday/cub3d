@@ -25,13 +25,9 @@ void	move_up_down(t_map *map, int dir)
 	
 	delta_x = (map->dir_x * SPEED * dir);
 	delta_y = (map->dir_y * SPEED * dir);
-	if (map->pos_x + delta_x > 0
-		&& map->pos_x + delta_x < map->width - 1
-		&& map->map[(int)map->pos_y][(int)(map->pos_x + delta_x)] == AISLE)
+	if (map->map[(int)map->pos_y][(int)(map->pos_x + delta_x)] == AISLE)
 		map->pos_x += delta_x;
-	if (map->pos_y + delta_y > 0
-		&& map->pos_y + delta_y < map->height - 1
-		&& map->map[(int)(map->pos_y + delta_y)][(int)map->pos_x] == AISLE)
+	if (map->map[(int)(map->pos_y + delta_y)][(int)map->pos_x] == AISLE)
 		map->pos_y += delta_y;
 }
 
@@ -42,13 +38,9 @@ void	move_right_left(t_map *map, int dir)
 
 	dir_x = cos(radian(90 * dir)) * map->dir_x - sin(radian(90 * dir)) * map->dir_y;
 	dir_y = sin(radian(90 * dir)) * map->dir_x + cos(radian(90 * dir)) * map->dir_y;
-	if (map->pos_x + dir_x * SPEED > 0
-		&& map->pos_x + dir_x * SPEED < map->width - 1
-		&& map->map[(int)map->pos_y][(int)(map->pos_x + dir_x * SPEED)] == AISLE)
+	if (map->map[(int)map->pos_y][(int)(map->pos_x + dir_x * SPEED)] == AISLE)
 		map->pos_x += dir_x * SPEED;
-	if(map->pos_y + dir_y * SPEED > 0
-		&& map->pos_y + dir_y * SPEED < map->height - 1
-		&& map->map[(int)(map->pos_y + dir_y * SPEED)][(int)map->pos_x] == AISLE)
+	if(map->map[(int)(map->pos_y + dir_y * SPEED)][(int)map->pos_x] == AISLE)
 		map->pos_y += dir_y * SPEED;
 }
 
