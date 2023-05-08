@@ -6,7 +6,7 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/07 17:02:42 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:00:57 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
 	int	index;
 
 	addr = (int *)xpm->addr;
-	index = (tex_pos * xpm->wid + (xpm->wid - v->tex_x) - 1);
+	index = ((int)tex_pos * xpm->wid + (xpm->wid - v->tex_x) - 1);
 	return (addr[index]);
 }
 
