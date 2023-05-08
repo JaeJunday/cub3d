@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_info.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:47:59 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 18:18:15 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:27:57 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ int	set_map_info_bg(int *color, t_bool *flag, char **info)
 		++i;
 	if (i != 3 && free_split(rgb))
 		format_error(info);
-	i = 0;
 	*color = 0;
-	while (rgb[i])
+	i = -1;
+	while (rgb[++i])
 	{
 		buf = ft_atoi(rgb[i]);
 		if (buf < 0 && free_split(rgb))
 			format_error(info);
 		*color = (*color << 8) + buf;
-		++i;
 	}
 	*flag = true;
 	return (free_split(rgb) + free_split(info));

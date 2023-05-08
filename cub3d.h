@@ -1,28 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/08 09:17:12 by hujeong           #+#    #+#             */
+/*   Updated: 2023/05/08 09:50:07 by hujeong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <math.h>
-#include <mlx.h>
-#include "libft/libft.h"
-#include "libft/gnl.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <math.h>
+# include <mlx.h>
+# include "libft/libft.h"
+# include "libft/gnl.h"
 
-#define KEYPRESS 2
-#define WIN_DESTROY 17
-#define ESC 53
-#define AXIS_X	0
-#define AXIS_Y	1
-#define WIN_H 1200
-#define WIN_W 2200
-#define ANGLE 3
-#define SPEED 0.2
-#define WALL '1'
-#define AISLE '2'
-#define PLAIN 0.66
+# define KEYPRESS 2
+# define WIN_DESTROY 17
+# define ESC 53
+# define AXIS_X	0
+# define AXIS_Y	1
+# define WIN_H 1200
+# define WIN_W 2200
+# define ANGLE 3
+# define SPEED 0.2
+# define WALL '1'
+# define AISLE '2'
+# define PLAIN 0.66
 
-#define PI 3.141592
+# define PI 3.141592
 
 typedef enum e_bool
 {
@@ -112,14 +124,14 @@ typedef struct s_vector
 
 //-----------------------<parsing>----------------------
 //main.c
-int 	arg_check(int argc, char **argv);
-int 	parse_map(char **argv, t_map *map);
+int		arg_check(int argc, char **argv);
+int		parse_map(char **argv, t_map *map);
 //check_dfs.c
 void	check_dfs_map(t_map *map);
-void 	dfs_map(t_map *map, int x, int y, t_bool *flag);
+void	dfs_map(t_map *map, int x, int y, t_bool *flag);
 int		move_map(t_map *map, int y, int x, t_bool *flag);
 //check_line.c
-int 	check_line(char *line, t_map *map);
+int		check_line(char *line, t_map *map);
 t_bool	check_info(t_flag flag);
 //get_map_data.c
 void	get_map_data(char *line, t_map *map);
@@ -139,7 +151,7 @@ int		map_error(t_map *map);
 void	malloc_error(void);
 void	format_error(char **info);
 //free_split.c
-int  	free_split(char **str);
+int		free_split(char **str);
 
 //-----------------------<ray_casting>----------------------
 //mlx_start.c
@@ -152,7 +164,9 @@ void	ray_casting(t_map *map);
 void	check_side_dda(t_map *map, t_vector *v);
 void	set_side_dist(t_map *map, t_vector *v);
 void	draw_wall(t_map *map, t_vector *v, int x);
-int	get_xpm_texture(t_vector *v);
+//get_xpm_texture.c
+int		get_xpm_texture(t_vector *v);
+int		get_xpm_texture_color(t_img *xpm, t_vector *v);
 void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm);
 //mlx_hook.c
 int		key_press(int key, t_map *map);

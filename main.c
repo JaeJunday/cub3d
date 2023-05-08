@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:29 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/05 17:57:37 by jaejkim          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:21:14 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int arg_check(int argc, char **argv)
+int	arg_check(int argc, char **argv)
 {
-	int len;
+	int	len;
 
 	if (argc != 2)
 		return (printf("Error: argument error\n"));
@@ -28,10 +28,10 @@ int arg_check(int argc, char **argv)
 	return (0);
 }
 
-int parse_map(char **argv, t_map *map)
+int	parse_map(char **argv, t_map *map)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	fd = open(argv[1], O_RDONLY);
 	if (!fd)
@@ -49,9 +49,9 @@ int parse_map(char **argv, t_map *map)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_map map;
+	t_map	map;
 
 	if (arg_check(argc, argv))
 		return (1);
@@ -59,13 +59,5 @@ int main(int argc, char **argv)
 	ft_mlx(&map);
 	parse_map(argv, &map);
 	start(&map);
-// ------------------------< test code >----------------------//
-	// printf("wid : %d, hei : %d, pos_x : %f, pos_y : %f\n", map.width, map.height, map.pos_x, map.pos_y);
-	// int i = -1;
-	// while(map.map[++i])
-	//	 printf("%s\n", map.map[i]);
-	//i = -1;
-	//while(map.test_map[++i])
-	//	printf("%s\n", map.test_map[i]); 
-// ------------------------< test code >----------------------//
+	return (0);
 }

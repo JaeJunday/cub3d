@@ -6,7 +6,7 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:04 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/08 09:00:47 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:31:16 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,21 @@ void	get_direction(t_map *map, char c)
 	{
 		map->dir_x = 0;
 		if (c == 'N')
-		{
 			map->dir_y = -1;
-			map->plane_x = PLAIN;
-		}
 		else
-		{
 			map->dir_y = 1;
-			map->plane_x = -PLAIN;
-		}
+		map->plane_x = map->dir_y * -1 * PLAIN;
 		map->plane_y = 0;
 	}
 	else if (c == 'W' || c == 'E')
 	{
 		map->dir_y = 0;
 		if (c == 'W')
-		{
 			map->dir_x = -1;
-			map->plane_y = -PLAIN;
-		}
 		else
-		{
 			map->dir_x = 1;
-			map->plane_y = PLAIN;
-		}
 		map->plane_x = 0;
+		map->plane_y = map->dir_x * PLAIN;
 	}
 }
 

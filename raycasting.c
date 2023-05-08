@@ -6,52 +6,11 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/08 09:00:57 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/08 09:50:17 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	get_xpm_texture_x(t_map *map, t_vector *v, t_img *xpm)
-{
-	if (v->side == AXIS_Y) 
-		v->wall_x = map->pos_y + v->perp_wall_dist * v->ray_dir_y;
-	else
-		v->wall_x = map->pos_x + v->perp_wall_dist * v->ray_dir_x;
-	v->wall_x -= floor((v->wall_x));
-	v->tex_x = (int)(v->wall_x * xpm->wid);
-	if((v->side == AXIS_Y && v->ray_dir_x > 0) || (v->side == AXIS_X && v->ray_dir_y < 0)) 
-		v->tex_x = xpm->wid - v->tex_x - 1;
-}
-
-int	get_xpm_texture_color(t_img *xpm, t_vector *v, double tex_pos)
-{
-	int	*addr;
-	int	index;
-
-	addr = (int *)xpm->addr;
-	index = ((int)tex_pos * xpm->wid + (xpm->wid - v->tex_x) - 1);
-	return (addr[index]);
-}
-
-int	get_xpm_texture(t_vector *v)
-{
-	if (v->side == AXIS_X)
-	{
-		if (v->ray_dir_y < 0)
-			return (0);
-		else if (v->ray_dir_y >= 0)
-			return (2);
-	}
-	else if (v->side == AXIS_Y)
-	{
-		if (v->ray_dir_x < 0)
-			return (3);
-		else if (v->ray_dir_x >= 0)
-			return (1);
-	}
-	return (true);
-}
 
 void	draw_wall(t_map *map, t_vector *v, int x)
 {
@@ -62,6 +21,7 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 	int		tex_num;
 	int		draw_start;
 	int		draw_end;
+	int		color;
 
 	tex_num = get_xpm_texture(v);
 	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
@@ -77,8 +37,8 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 	y = draw_start;
 	while (y < draw_end)
 	{
-		int tex_y = (int)tex_pos & (map->xpm[tex_num].hei - 1);
-		int color = get_xpm_texture_color(&map->xpm[tex_num], v, tex_y);
+		v->tex_y = (int)tex_pos & (map->xpm[tex_num].hei - 1);
+		color = get_xpm_texture_color(&map->xpm[tex_num], v);
 		my_mlx_pixel_put(&map->img, x, y, color);
 		tex_pos += step;
 		++y;
@@ -126,12 +86,14 @@ void	check_side_dda(t_map *map, t_vector *v)
 			v->side = AXIS_X;
 		}
 		if (map->map[v->map_y][v->map_x] == WALL)
-			break;
+			break ;
 	}
-	if (v->side == AXIS_Y) 
-		v->perp_wall_dist = (v->map_x - map->pos_x + (1 - v->step_x) / 2) / v->ray_dir_x;
+	if (v->side == AXIS_Y)
+		v->perp_wall_dist
+			= (v->map_x - map->pos_x + (1 - v->step_x) / 2) / v->ray_dir_x;
 	else
-		v->perp_wall_dist = (v->map_y - map->pos_y + (1 - v->step_y) / 2) / v->ray_dir_y;
+		v->perp_wall_dist
+			= (v->map_y - map->pos_y + (1 - v->step_y) / 2) / v->ray_dir_y;
 }
 
 void	ray_casting(t_map *map)
@@ -141,7 +103,7 @@ void	ray_casting(t_map *map)
 
 	clear_img(&map->img, map->info.c, map->info.f);
 	i = -1;
-	while(++i < WIN_W)
+	while (++i < WIN_W)
 	{
 		v.map_x = (int)map->pos_x;
 		v.map_y = (int)map->pos_y;

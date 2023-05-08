@@ -10,6 +10,7 @@ SRCS =	/parsing/check_dfs.c \
 		/mlx_hook.c \
 		/mlx_start.c \
 		/raycasting.c \
+		/get_xpm_texture.c \
 		/rotate.c
 OBJS = $(SRCS:.c=.o)
 OBJ_DIR = obj
