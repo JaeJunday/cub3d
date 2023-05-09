@@ -6,7 +6,7 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 09:17:12 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/08 09:50:07 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/08 16:18:22 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	clear_img(t_img *img, int c_color, int f_color);
 void	ray_casting(t_map *map);
 void	check_side_dda(t_map *map, t_vector *v);
 void	set_side_dist(t_map *map, t_vector *v);
-void	draw_wall(t_map *map, t_vector *v, int x);
+void	draw_wall(t_map *map, t_vector *v, int x, int tex_num);
 //get_xpm_texture.c
 int		get_xpm_texture(t_vector *v);
 int		get_xpm_texture_color(t_img *xpm, t_vector *v);

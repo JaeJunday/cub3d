@@ -6,24 +6,20 @@
 /*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:32 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/08 09:50:17 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/05/08 16:18:03 by hujeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_wall(t_map *map, t_vector *v, int x)
+void	draw_wall(t_map *map, t_vector *v, int x, int tex_num)
 {
 	int		line_height;
 	double	tex_pos;
-	int		y;
 	double	step;
-	int		tex_num;
 	int		draw_start;
 	int		draw_end;
-	int		color;
 
-	tex_num = get_xpm_texture(v);
 	get_xpm_texture_x(map, v, &map->xpm[tex_num]);
 	line_height = (int)(WIN_H / v->perp_wall_dist);
 	draw_start = WIN_H / 2 - line_height / 2;
@@ -34,14 +30,13 @@ void	draw_wall(t_map *map, t_vector *v, int x)
 		draw_end = WIN_H - 1;
 	step = (double)map->xpm[tex_num].hei / line_height;
 	tex_pos = (draw_start - WIN_H / 2 + line_height / 2) * step;
-	y = draw_start;
-	while (y < draw_end)
+	while (draw_start < draw_end)
 	{
 		v->tex_y = (int)tex_pos & (map->xpm[tex_num].hei - 1);
-		color = get_xpm_texture_color(&map->xpm[tex_num], v);
-		my_mlx_pixel_put(&map->img, x, y, color);
+		my_mlx_pixel_put(&map->img, x, draw_start,
+			get_xpm_texture_color(&map->xpm[tex_num], v));
 		tex_pos += step;
-		++y;
+		++draw_start;
 	}
 }
 
@@ -114,7 +109,7 @@ void	ray_casting(t_map *map)
 		v.delta_dist_y = fabs(1 / v.ray_dir_y);
 		set_side_dist(map, &v);
 		check_side_dda(map, &v);
-		draw_wall(map, &v, i);
+		draw_wall(map, &v, i, get_xpm_texture(&v));
 	}
 	mlx_put_image_to_window(map->mlx, map->win, map->img.img, 0, 0);
 }
