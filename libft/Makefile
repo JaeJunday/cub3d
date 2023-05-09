@@ -62,17 +62,16 @@ all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)													
 			@$(AR) $(ARFLAGS) $@ $?
-			@echo "make libft.a"
 
 .PHONY	:	clean
 clean	:
-			rm -f $(OBJS) 
+			@rm -f $(OBJS) 
 
 .PHONY	:	fclean
 fclean	:	clean
-			rm -f $(NAME)
+			@rm -f $(NAME)
 
 .PHONY	:	re
 re		:
-			make fclean
-			make all
+			@make fclean
+			@make all
