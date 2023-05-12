@@ -32,7 +32,7 @@ void	draw_wall(t_map *map, t_vector *v, int x, int tex_num)
 	tex_pos = (draw_start - WIN_H / 2 + line_height / 2) * step;
 	while (draw_start < draw_end)
 	{
-		v->tex_y = (int)tex_pos & (map->xpm[tex_num].hei - 1);
+		v->tex_y = (int)tex_pos;
 		my_mlx_pixel_put(&map->img, x, draw_start,
 			get_xpm_texture_color(&map->xpm[tex_num], v));
 		tex_pos += step;

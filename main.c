@@ -34,7 +34,7 @@ int	parse_map(char **argv, t_map *map)
 	char	*line;
 
 	fd = open(argv[1], O_RDONLY);
-	if (!fd)
+	if (fd < 0)
 		return (printf("Error: file open error\n"));
 	line = get_next_line(fd);
 	while (line)
