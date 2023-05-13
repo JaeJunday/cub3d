@@ -44,8 +44,6 @@ clean :
 	@rm -rf $(OBJ_DIR)
 	@echo "\033[33mclean obj\033[0m"
 
-.PHONY : clean
-
 fclean : clean
 	@rm -rf $(LIBFT)
 	@rm -rf $(NAME)
