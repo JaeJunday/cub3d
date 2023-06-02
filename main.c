@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hujeong <hujeong@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaejkim <jaejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 11:48:29 by hujeong           #+#    #+#             */
-/*   Updated: 2023/05/08 09:21:14 by hujeong          ###   ########.fr       */
+/*   Updated: 2023/06/02 21:19:00 by jaejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	parse_map(char **argv, t_map *map)
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		return (printf("Error: file open error\n"));
+		exit(printf("Error: file open error\n"));
 	line = get_next_line(fd);
 	while (line)
 	{
