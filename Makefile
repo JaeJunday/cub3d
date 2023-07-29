@@ -18,7 +18,8 @@ OBJ_DIRS = obj/parsing
 OBJS_FILES = $(addprefix $(OBJ_DIR),$(OBJS))
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS += -Wall -Wextra -Werror 
+CFLAGS += -O3
 #-fsanitize=address -g
 LFLAGS = -lmlx -Lmlx -framework OpenGL -framework Appkit -lft -Llibft
 
