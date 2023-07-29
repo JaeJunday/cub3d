@@ -20,9 +20,10 @@ OBJS_FILES = $(addprefix $(OBJ_DIR),$(OBJS))
 CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 #-fsanitize=address -g
-LFLAGS = -lmlx -framework OpenGL -framework Appkit -lft -Llibft
+LFLAGS = -lmlx -Lmlx -framework OpenGL -framework Appkit -lft -Llibft
 
 LIBFT = libft/libft.a
+MLX = mlx/libmlx.a
 
 all : $(NAME)
 
@@ -36,19 +37,23 @@ $(LIBFT) :
 	@make -C libft
 
 $(NAME) : $(OBJS_FILES) $(LIBFT)
+	@make -C mlx
 	@cc $(CFLAGS) $(LFLAGS) $(OBJS_FILES) -o $(NAME)
 	@echo "\033[32mmake cub3D\033[0m"
 
 clean :
 	@make -C libft clean
 	@rm -rf $(OBJ_DIR)
+	@rm -f mlx/*.o
 	@echo "\033[33mclean obj\033[0m"
 
 fclean : clean
 	@rm -rf $(LIBFT)
+	@rm -rf $(MLX)
 	@rm -rf $(NAME)
 	@echo "\033[33mremove cub3D\033[0m"
 
 re : fclean
 	@make all
-.PHONY : all clean fclean re
+
+.PHONY : all clean fclean ree

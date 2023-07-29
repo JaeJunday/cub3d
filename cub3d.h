@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "mlx/mlx.h"
 # include "libft/libft.h"
 # include "libft/gnl.h"
 
